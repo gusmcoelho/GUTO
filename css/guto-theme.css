@@ -1,0 +1,835 @@
+/* ============================================================
+   GUTO THEME — Purple Pixel Penguin Edition
+   Replaces shark-v2-theme.css entirely.
+   All functional selectors are preserved; only colours /
+   images / font choices change.
+   ============================================================ */
+
+/* ── Reset ── */
+* {
+  box-sizing: border-box;
+}
+
+/* ── Design tokens ── */
+:root {
+  --guto-bg:           #08010f;
+  --guto-panel:        rgba(18, 4, 36, 0.92);
+  --guto-panel-strong: rgba(22, 6, 44, 0.97);
+  --guto-purple:       #a855f7;
+  --guto-violet:       #7c3aed;
+  --guto-pink:         #ec4899;
+  --guto-lavender:     #c4b5fd;
+  --guto-text:         #f5f3ff;
+  --guto-muted:        rgba(245, 243, 255, 0.65);
+  --guto-border:       rgba(168, 85, 247, 0.72);
+  --guto-glow:         rgba(168, 85, 247, 0.38);
+  --guto-success:      #34d399;
+  --guto-error:        #f43f5e;
+
+  /* Map old shark vars so style.css fallback still works */
+  --shark-bg:          var(--guto-bg);
+  --shark-panel:       var(--guto-panel);
+  --shark-panel-strong:var(--guto-panel-strong);
+  --shark-cyan:        var(--guto-purple);
+  --shark-blue:        var(--guto-violet);
+  --shark-green:       var(--guto-success);
+  --shark-text:        var(--guto-text);
+  --shark-muted:       var(--guto-muted);
+  --shark-border:      var(--guto-border);
+  --shark-glow:        var(--guto-glow);
+}
+
+/* ── Base ── */
+html, body {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  padding: 4px !important;
+  background:
+    radial-gradient(circle at 50% -10%, rgba(124, 58, 237, 0.28), transparent 36%),
+    radial-gradient(circle at 15% 100%, rgba(168, 85, 247, 0.16), transparent 34%),
+    #08010f !important;
+  color: var(--guto-text);
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+/* Subtle pixel-scanline overlay */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 3px,
+      rgba(168, 85, 247, 0.022) 4px
+    ),
+    radial-gradient(circle at 50% 12%, rgba(168, 85, 247, 0.14), transparent 26%);
+  z-index: 9999;
+}
+
+/* ── App container ── */
+.app-container {
+  height: calc(100vh - 8px) !important;
+  min-height: 0;
+  padding: 5px !important;
+  border: 2px solid rgba(168, 85, 247, 0.55) !important;
+  border-radius: 8px !important;
+  background:
+    linear-gradient(180deg, rgba(18, 4, 36, 0.9), rgba(8, 1, 20, 0.98)),
+    radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.22), transparent 36%) !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.12),
+    0 0 38px rgba(124, 58, 237, 0.22),
+    inset 0 0 48px rgba(0, 0, 0, 0.78) !important;
+  overflow: hidden;
+  image-rendering: pixelated;
+}
+
+/* ── Header ── */
+.glass-header {
+  flex: 0 0 66px !important;
+  min-height: 0 !important;
+  height: 66px !important;
+  padding: 7px 9px !important;
+  gap: 7px !important;
+  border: 2px solid var(--guto-border) !important;
+  border-radius: 6px 6px 0 0 !important;
+  background:
+    linear-gradient(90deg, rgba(22, 4, 46, 0.97), rgba(30, 8, 58, 0.86)),
+    radial-gradient(circle at 55% 0%, rgba(168, 85, 247, 0.24), transparent 40%) !important;
+  box-shadow:
+    0 0 28px rgba(168, 85, 247, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06) !important;
+}
+
+/* ── Logo area ── */
+.logo-area {
+  flex: 1 1 auto !important;
+  min-width: 0 !important;
+  gap: 8px !important;
+  overflow: hidden !important;
+}
+
+.logo-area > div {
+  min-width: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Pixel-art logo */
+.app-logo {
+  width: 38px !important;
+  height: 38px !important;
+  flex: 0 0 38px !important;
+  border-radius: 4px !important;
+  object-fit: cover;
+  border: 2px solid rgba(168, 85, 247, 0.9) !important;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.06),
+    0 0 22px rgba(168, 85, 247, 0.6),
+    inset 0 0 14px rgba(168, 85, 247, 0.28) !important;
+  image-rendering: pixelated;
+}
+
+/* ── H1 (title) ── */
+h1 {
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  max-width: 100% !important;
+  overflow: hidden;
+  text-overflow: clip !important;
+  font-size: 13px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 1px !important;
+  white-space: nowrap !important;
+  color: #ffffff !important;
+  text-shadow:
+    2px 2px 0 rgba(124, 58, 237, 0.9),
+    0 0 18px rgba(168, 85, 247, 0.55) !important;
+}
+
+/* ── Site link ── */
+.site-link {
+  max-width: 100% !important;
+  margin-top: 4px !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 8px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.5px !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  color: var(--guto-lavender) !important;
+  text-shadow: 0 0 12px rgba(168, 85, 247, 0.52) !important;
+}
+
+.site-link:hover {
+  color: #ffffff !important;
+  text-shadow: 0 0 16px rgba(168, 85, 247, 0.7) !important;
+}
+
+/* ── Status indicator ── */
+.status-indicator {
+  width: 25px !important;
+  height: 25px !important;
+  flex: 0 0 25px !important;
+  margin-left: 2px !important;
+  font-size: 14px !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px !important;
+  border: 0 !important;
+  background: transparent !important;
+  color: var(--guto-success);
+  box-shadow: none !important;
+}
+
+.status-indicator i {
+  font-size: 10px !important;
+  line-height: 1 !important;
+  filter: drop-shadow(0 0 8px rgba(52, 211, 153, 0.75)) !important;
+}
+
+.status-indicator.disconnected i {
+  color: var(--guto-error);
+  filter: drop-shadow(0 0 8px rgba(244, 63, 94, 0.72)) !important;
+}
+
+/* ── Debug panel ── */
+.debug-panel {
+  flex: 0 0 41px !important;
+  min-height: 0 !important;
+  height: 41px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  flex-wrap: nowrap !important;
+  padding: 6px 9px !important;
+  gap: 4px !important;
+  overflow: hidden !important;
+  border: 2px solid var(--guto-border) !important;
+  border-top: 0 !important;
+  background: rgba(12, 2, 26, 0.9) !important;
+  box-shadow: inset 0 1px 0 rgba(168, 85, 247, 0.14) !important;
+}
+
+.debug-item {
+  min-width: 0 !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 3px !important;
+  flex: 0 1 auto !important;
+}
+
+.debug-item:first-child {
+  flex: 1 1 110px !important;
+  justify-content: flex-start !important;
+}
+
+.debug-item .label {
+  flex: 0 0 auto !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 9px !important;
+  line-height: 1 !important;
+  letter-spacing: 0.3px !important;
+  color: var(--guto-lavender) !important;
+  text-shadow: 0 0 10px rgba(168, 85, 247, 0.42);
+}
+
+.debug-item .value {
+  min-width: 0 !important;
+  max-width: 54px !important;
+  height: 21px !important;
+  padding: 0 5px !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 7px !important;
+  line-height: 21px !important;
+  letter-spacing: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  border-radius: 3px !important;
+  border: 1px solid rgba(168, 85, 247, 0.38) !important;
+  background: rgba(22, 4, 46, 0.88) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 12px rgba(168, 85, 247, 0.14),
+    inset 0 0 12px rgba(168, 85, 247, 0.06) !important;
+}
+
+#debugProject {
+  width: 52px !important;
+}
+
+#debugAuth,
+#debugLove {
+  width: 35px !important;
+  min-width: 35px !important;
+  max-width: 35px !important;
+  padding-left: 3px !important;
+  padding-right: 3px !important;
+  border-radius: 3px !important;
+  min-width: 48px !important;
+  color: #ffffff !important;
+  background: rgba(30, 10, 60, 0.82) !important;
+  border-color: rgba(168, 85, 247, 0.6) !important;
+  box-shadow:
+    0 0 16px rgba(168, 85, 247, 0.22),
+    inset 0 0 14px rgba(168, 85, 247, 0.16) !important;
+}
+
+/* ── Chat history ── */
+.chat-history {
+  flex: 1 1 auto !important;
+  min-height: 0 !important;
+  margin-top: 6px !important;
+  padding: 10px !important;
+  gap: 8px !important;
+  border: 2px solid var(--guto-border) !important;
+  border-radius: 6px !important;
+  overflow-y: auto !important;
+  background:
+    linear-gradient(180deg, rgba(12, 2, 26, 0.38), rgba(12, 2, 26, 0.64)),
+    url("../images/guto-hero.png") center center / cover no-repeat !important;
+  box-shadow:
+    0 0 28px rgba(168, 85, 247, 0.2),
+    inset 0 0 36px rgba(0, 0, 0, 0.72) !important;
+}
+
+/* Hide the "history cleared" pseudo-elements always (pixel style is cleaner) */
+.chat-history::before,
+.chat-history::after {
+  display: none !important;
+}
+
+.chat-message {
+  z-index: 1;
+}
+
+.chat-message.system {
+  align-self: center;
+  margin: 12px auto !important;
+  max-width: 82% !important;
+}
+
+.chat-message.system .message-content {
+  display: inline-block;
+  max-width: 100% !important;
+  padding: 8px 12px !important;
+  border: 2px solid rgba(168, 85, 247, 0.32);
+  border-radius: 4px;
+  background: rgba(18, 4, 36, 0.62);
+  color: rgba(255, 255, 255, 0.84);
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace;
+  font-size: 9px !important;
+  line-height: 1.5 !important;
+  font-style: normal;
+  box-shadow: 0 0 18px rgba(168, 85, 247, 0.12);
+}
+
+.chat-message.user .message-content,
+.chat-message.bot .message-content {
+  border: 2px solid rgba(168, 85, 247, 0.42) !important;
+  border-radius: 6px !important;
+  background: rgba(18, 4, 36, 0.85) !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 10px !important;
+  line-height: 1.65 !important;
+  box-shadow:
+    0 0 18px rgba(168, 85, 247, 0.14),
+    inset 0 0 14px rgba(168, 85, 247, 0.06) !important;
+}
+
+.chat-message.user .message-content {
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.22), rgba(168, 85, 247, 0.18)) !important;
+}
+
+/* ── Footer / composer ── */
+.input-area.glass-footer,
+.glass-footer {
+  flex: 0 0 auto !important;
+  min-height: 0 !important;
+  max-height: none !important;
+  margin-top: 6px !important;
+  padding: 8px 9px 9px !important;
+  overflow: visible !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.composer-mode-bar {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px !important;
+  margin-bottom: 7px !important;
+}
+
+.composer-mode-btn {
+  height: 36px !important;
+  min-height: 36px !important;
+  padding: 0 6px !important;
+  border-radius: 4px !important;
+  border: 2px solid rgba(168, 85, 247, 0.42) !important;
+  background: rgba(12, 2, 26, 0.82) !important;
+  color: rgba(255, 255, 255, 0.74) !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 9px !important;
+  line-height: 1.2 !important;
+  letter-spacing: 0 !important;
+  box-shadow:
+    0 0 14px rgba(168, 85, 247, 0.1),
+    inset 0 0 14px rgba(168, 85, 247, 0.05) !important;
+}
+
+.composer-mode-btn.active {
+  color: #ffffff !important;
+  border-color: var(--guto-purple) !important;
+  background:
+    linear-gradient(180deg, rgba(168, 85, 247, 0.28), rgba(90, 30, 140, 0.65)) !important;
+  box-shadow:
+    0 0 28px rgba(168, 85, 247, 0.38),
+    inset 0 0 18px rgba(168, 85, 247, 0.18) !important;
+}
+
+/* ── Textarea ── */
+textarea#userCommand {
+  height: 78px !important;
+  min-height: 78px !important;
+  max-height: 78px !important;
+  margin-bottom: 7px !important;
+  padding: 12px 14px !important;
+  border-radius: 6px !important;
+  border: 2px solid var(--guto-border) !important;
+  background:
+    radial-gradient(circle at 92% 76%, rgba(168, 85, 247, 0.1), transparent 20%),
+    rgba(8, 1, 20, 0.92) !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 11px !important;
+  line-height: 1.5 !important;
+  overflow-y: auto !important;
+  box-shadow:
+    0 0 24px rgba(168, 85, 247, 0.22),
+    inset 0 0 28px rgba(0, 0, 0, 0.6) !important;
+}
+
+textarea#userCommand::placeholder {
+  color: rgba(255, 255, 255, 0.56) !important;
+  font-style: italic;
+}
+
+/* Input group (license key) */
+.input-group input {
+  background: rgba(8, 1, 20, 0.9) !important;
+  border: 2px solid rgba(168, 85, 247, 0.46) !important;
+  border-radius: 4px !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 9px !important;
+  box-shadow:
+    inset 0 0 12px rgba(168, 85, 247, 0.06),
+    0 0 18px rgba(168, 85, 247, 0.12) !important;
+}
+
+.input-group input:focus {
+  border-color: var(--guto-purple) !important;
+  box-shadow:
+    inset 0 0 14px rgba(168, 85, 247, 0.1),
+    0 0 24px rgba(168, 85, 247, 0.3) !important;
+}
+
+/* ── Action bar ── */
+.action-bar {
+  display: grid !important;
+  grid-template-columns: 34px 34px 34px minmax(0, 1fr) 36px 42px !important;
+  gap: 6px !important;
+  align-items: center !important;
+  min-height: 36px !important;
+  height: 36px !important;
+}
+
+.spacer {
+  min-width: 0;
+}
+
+/* ── Buttons ── */
+.btn-icon,
+.btn-send {
+  border-radius: 4px !important;
+  border: 2px solid rgba(168, 85, 247, 0.48) !important;
+  background: rgba(8, 1, 20, 0.9) !important;
+  color: var(--guto-purple) !important;
+  box-shadow:
+    0 0 16px rgba(168, 85, 247, 0.14),
+    inset 0 0 16px rgba(168, 85, 247, 0.07) !important;
+}
+
+.btn-icon {
+  width: 34px !important;
+  height: 34px !important;
+  min-width: 34px !important;
+  min-height: 34px !important;
+  padding: 0 !important;
+  font-size: 13px !important;
+}
+
+.btn-send {
+  width: 42px !important;
+  height: 36px !important;
+  min-width: 42px !important;
+  min-height: 36px !important;
+  padding: 0 !important;
+  font-size: 15px !important;
+  border-color: var(--guto-purple) !important;
+  background:
+    linear-gradient(180deg, rgba(168, 85, 247, 0.28), rgba(80, 20, 140, 0.85)) !important;
+}
+
+.btn-icon:hover,
+.btn-send:hover:not(:disabled) {
+  transform: translateY(-1px) !important;
+  color: #ffffff !important;
+  box-shadow:
+    0 0 26px rgba(168, 85, 247, 0.36),
+    inset 0 0 20px rgba(168, 85, 247, 0.14) !important;
+}
+
+.btn-send:disabled {
+  opacity: 0.52;
+  cursor: not-allowed;
+}
+
+.btn-connect {
+  background: linear-gradient(135deg, rgba(52, 211, 153, 0.22), rgba(16, 70, 50, 0.48)) !important;
+  border: 2px solid rgba(52, 211, 153, 0.55) !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 8px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 16px rgba(52, 211, 153, 0.16) !important;
+}
+
+.btn-connect:hover {
+  box-shadow: 0 0 24px rgba(52, 211, 153, 0.28) !important;
+  filter: brightness(1.1);
+}
+
+.btn-disconnect {
+  background: linear-gradient(135deg, rgba(244, 63, 94, 0.2), rgba(100, 10, 28, 0.48)) !important;
+  border: 2px solid rgba(244, 63, 94, 0.55) !important;
+  color: #ffffff !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 8px !important;
+  border-radius: 4px !important;
+  box-shadow: 0 0 16px rgba(244, 63, 94, 0.16) !important;
+}
+
+.btn-disconnect:hover {
+  box-shadow: 0 0 24px rgba(244, 63, 94, 0.28) !important;
+}
+
+/* ── License gate ── */
+.license-gate {
+  top: 86px !important;
+  left: 8px !important;
+  right: 8px !important;
+  bottom: 118px !important;
+  z-index: 24;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.license-gate::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  background:
+    radial-gradient(circle at top, rgba(168, 85, 247, 0.1), transparent 46%),
+    linear-gradient(180deg, rgba(14, 2, 32, 0.86), rgba(8, 1, 20, 0.94));
+  border: 2px solid rgba(168, 85, 247, 0.2);
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.05),
+    0 22px 60px rgba(0, 0, 0, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+.license-gate-panel {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  padding: 14px !important;
+  border-radius: 6px !important;
+  border: 2px solid rgba(168, 85, 247, 0.52) !important;
+  background:
+    linear-gradient(180deg, rgba(22, 4, 46, 0.94), rgba(8, 1, 20, 0.98)) !important;
+  box-shadow:
+    0 0 0 1px rgba(168, 85, 247, 0.06),
+    0 18px 46px rgba(0, 0, 0, 0.44),
+    0 0 32px rgba(168, 85, 247, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+}
+
+.license-gate-hero {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 14px;
+}
+
+.license-gate-mascot {
+  width: 54px !important;
+  height: 54px !important;
+  border-radius: 4px;
+  image-rendering: pixelated;
+  filter: drop-shadow(0 0 16px rgba(168, 85, 247, 0.5));
+}
+
+.license-gate-copy {
+  min-width: 0;
+}
+
+.license-gate-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 9px;
+  margin-bottom: 8px;
+  border-radius: 3px;
+  border: 1px solid rgba(168, 85, 247, 0.28);
+  background: rgba(168, 85, 247, 0.1);
+  color: var(--guto-lavender);
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+
+.license-gate-copy h2 {
+  margin: 0 0 6px;
+  color: #ffffff;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 11px !important;
+  letter-spacing: 0.5px;
+  text-shadow: 0 0 14px rgba(168, 85, 247, 0.5);
+}
+
+.license-gate-copy p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.76);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px !important;
+  line-height: 1.5;
+}
+
+.license-device-card {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+  padding: 10px 12px;
+  border-radius: 4px;
+  border: 1px solid rgba(168, 85, 247, 0.18);
+  background: rgba(0, 0, 0, 0.38);
+  box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.05);
+}
+
+.device-id-label {
+  color: var(--guto-lavender);
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace;
+  font-size: 8px;
+  letter-spacing: 0.8px;
+}
+
+#deviceIdValue {
+  color: #ffffff;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace;
+  font-size: 9px;
+  line-height: 1.5;
+  word-break: break-all;
+}
+
+.license-input-wrap {
+  margin-bottom: 10px;
+}
+
+.license-actions {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.status-message {
+  min-height: 36px;
+  padding: 9px 10px;
+  border-radius: 4px;
+  border: 1px solid rgba(168, 85, 247, 0.16);
+  background: rgba(0, 0, 0, 0.36);
+  color: rgba(255, 255, 255, 0.82);
+  font-family: "IBM Plex Mono", monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  box-shadow: inset 0 0 12px rgba(168, 85, 247, 0.04);
+}
+
+.status-message.success {
+  border-color: rgba(52, 211, 153, 0.3);
+  background: rgba(52, 211, 153, 0.1);
+  color: #ecfff8;
+}
+
+.status-message.error {
+  border-color: rgba(244, 63, 94, 0.3);
+  background: rgba(244, 63, 94, 0.1);
+  color: #fff1f5;
+}
+
+.status-message.warning {
+  border-color: rgba(168, 85, 247, 0.22);
+  background: rgba(168, 85, 247, 0.07);
+  color: #f5f3ff;
+}
+
+.status-message.checking {
+  border-color: rgba(168, 85, 247, 0.28);
+  background: rgba(100, 30, 180, 0.18);
+  color: #f5f3ff;
+}
+
+/* ── License locked state ── */
+.app-container.license-locked .chat-history,
+.app-container.license-locked .glass-footer {
+  filter: none !important;
+  opacity: 0.48 !important;
+}
+
+.app-container.license-locked .glass-footer {
+  pointer-events: none;
+}
+
+/* ── File preview ── */
+.file-preview-container {
+  max-height: 42px !important;
+  padding: 3px 0 !important;
+  margin-bottom: 4px !important;
+}
+
+.file-preview-chip {
+  border-radius: 4px !important;
+  border-color: rgba(168, 85, 247, 0.44) !important;
+  background: rgba(8, 1, 20, 0.92) !important;
+}
+
+/* ── Scrollbar ── */
+::-webkit-scrollbar {
+  width: 6px;
+  background: #08010f;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--guto-violet);
+  border: 1px solid #08010f;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--guto-purple);
+}
+
+/* ── Bouncer speech bubble ── */
+.bouncer-speech {
+  background: rgba(12, 2, 26, 0.95) !important;
+  color: #ffffff !important;
+  border: 2px solid rgba(168, 85, 247, 0.52) !important;
+  box-shadow:
+    0 0 18px rgba(168, 85, 247, 0.2),
+    inset 0 0 14px rgba(168, 85, 247, 0.06) !important;
+  font-family: "Press Start 2P", "IBM Plex Mono", monospace !important;
+  font-size: 8px !important;
+}
+
+/* ── Height adaptations ── */
+@media (max-height: 760px) {
+  .glass-header {
+    flex-basis: 58px !important;
+    height: 58px !important;
+    padding: 6px 8px !important;
+  }
+
+  .app-logo {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+
+  h1 {
+    font-size: 11px !important;
+  }
+
+  .site-link {
+    font-size: 7px !important;
+  }
+
+  .debug-panel {
+    flex-basis: 36px !important;
+    height: 36px !important;
+    padding: 5px 7px !important;
+  }
+
+  .composer-mode-btn {
+    height: 32px !important;
+    min-height: 32px !important;
+    font-size: 8px !important;
+  }
+
+  textarea#userCommand {
+    height: 68px !important;
+    min-height: 68px !important;
+    max-height: 68px !important;
+    font-size: 10px !important;
+  }
+
+  .action-bar {
+    grid-template-columns: 32px 32px 32px minmax(0, 1fr) 34px 40px !important;
+    height: 34px !important;
+    min-height: 34px !important;
+  }
+
+  .btn-icon {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .btn-send {
+    width: 40px !important;
+    height: 34px !important;
+  }
+}
+
+/* ── Hidden utility ── */
+.hidden {
+  display: none !important;
+}
+
+/* ── Image modal ── */
+.image-modal {
+  background: rgba(8, 1, 20, 0.97);
+  backdrop-filter: blur(5px);
+}
+
+.image-modal .modal-img {
+  border: 3px solid var(--guto-purple);
+  box-shadow: 0 0 30px var(--guto-glow);
+  image-rendering: pixelated;
+}
+
+/* ── Pixel font import ── */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
