@@ -413,7 +413,7 @@ client.on('interactionCreate', async (interaction) => {
         // 1. Salvar a nova chave na tabela de LICENÇAS principal
         const insertKeyData = {
           [COL_KEY]: newKey,
-          status: 'active',
+          status: 'pending',
           max_devices: 1,
           [COL_EXPIRATION]: expiresAt.toISOString()
         };
