@@ -141,6 +141,7 @@
               if (durationMs === null) {
                 if (data.data) {
                   data.data.expiresAt = null;
+                  data.data.expires_at = null;
                 }
                 return new Response(JSON.stringify(data), {
                   status: response.status,
@@ -149,24 +150,56 @@
                 });
               }
 
-              const stored = await new Promise((r) => chrome.storage.local.get(["guto_activations"], r));
-              const activations = stored.guto_activations || {};
-              
-              let activationTime = activations[licenseKey];
-              if (!activationTime) {
-                activationTime = Date.now();
-                activations[licenseKey] = activationTime;
-                await new Promise((r) => chrome.storage.local.set({ guto_activations: activations }, r));
-              }
+              // Verifica se já existe ativação no banco de dados (retornada pelo servidor)
+              const dbActivatedAt = data.data ? (data.data.activatedAt || data.data.activated_at) : null;
+              const dbExpiresAt = data.data ? (data.data.expiresAt || data.data.expires_at) : null;
 
-              const expiresAtISO = new Date(activationTime + durationMs).toISOString();
+              let expiresAtISO;
 
-              if (!data.data || !data.data.expiresAt) {
+              if (dbActivatedAt) {
+                // Se já foi ativado no banco, usa o expires_at do banco
+                expiresAtISO = new Date(dbExpiresAt).toISOString();
+              } else {
+                // Primeira ativação (activated_at é NULL no banco)
+                // Usamos o momento atual para preencher activated_at e expires_at
+                const nowMs = Date.now();
+                const activationTimeISO = new Date(nowMs).toISOString();
+                expiresAtISO = new Date(nowMs + durationMs).toISOString();
+
                 if (!data.data || typeof data.data !== "object") {
                   data.data = {};
                 }
+                data.data.activatedAt = activationTimeISO;
+                data.data.activated_at = activationTimeISO;
                 data.data.expiresAt = expiresAtISO;
+                data.data.expires_at = expiresAtISO;
+
+                // Salva também localmente para consistência
+                const stored = await new Promise((r) => chrome.storage.local.get(["guto_activations"], r));
+                const activations = stored.guto_activations || {};
+                activations[licenseKey] = nowMs;
+                await new Promise((r) => chrome.storage.local.set({ guto_activations: activations }, r));
               }
+
+              // Checar se o tempo já expirou nas validações seguintes
+              if (new Date(expiresAtISO) < new Date()) {
+                data.sucesso = false;
+                data.erro = "Sua chave de licença expirou.";
+                if (data.data) {
+                  data.data.expiresAt = expiresAtISO;
+                  data.data.expires_at = expiresAtISO;
+                }
+                return new Response(JSON.stringify(data), {
+                  status: response.status,
+                  statusText: response.statusText,
+                  headers: response.headers
+                });
+              }
+
+              // Atualiza o objeto de resposta para que o sidepanel.js leia corretamente
+              if (!data.data) data.data = {};
+              data.data.expiresAt = expiresAtISO;
+              data.data.expires_at = expiresAtISO;
 
               return new Response(JSON.stringify(data), {
                 status: response.status,
